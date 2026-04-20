@@ -1,20 +1,108 @@
-// [1/]Latihan Menggunakan JSX 19 april 2026
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import DicodingLogo from './dicoding-logo.png';
 
-const element = (
-  <div>
-    <h1>Biodata Asyam Tapi versi React</h1>
-    <ul>
-      <li>Nama: Dicoding Indonesia</li>
-      <li>Bidang: Education</li>
-      <li>Tagline: Decode Ideas, Discover Potential.</li>
-      <img src="dicoding-logo.png" alt="logo dicoding" />
-      <img src={DicodingLogo} alt="Dicoding logonya" />
-    </ul>
-  </div>
-);
+// 1. Pindahkan Header ke luar agar bisa dipakai siapa saja (Scope global)
+function Header({ title, subtitle }) {
+  return (
+    <header>
+      <h1>{title}</h1>
+      <p>{subtitle}</p>
+    </header>
+  );
+}
+
+function Button({ link }) {
+  return <a href={link}>Cari tau lagi yuk</a>;
+}
+
+function CardHeader({ image, category }) {
+  return (
+    <header>
+      <h4>{category}</h4>
+      <img src={image} alt="News category" width="200" />
+    </header>
+  );
+}
+
+function CardBody({ date, title, content, link }) {
+  return (
+    <div>
+      <p>{date}</p>
+      <h2>{title}</h2>
+      <p>{content}</p>
+      <Button link={link} />
+    </div>
+  );
+}
+
+function Card({ image, category, date, title, content, link }) {
+  return (
+    <article style={{ marginBottom: '20px', borderBottom: '1px solid #ccc' }}>
+      <CardHeader image={image} category={category} />
+      <CardBody date={date} title={title} content={content} link={link} />
+    </article>
+  );
+}
+
+function News() {
+  const someNews = [
+    {
+      title: 'CNN Acuire BEME',
+      date: 'March 20 2022',
+      content: "CNN purchased Casey Neistat's Beme app for $25million.",
+      image: 'https://picsum.photos/600/400',
+      category: 'News',
+      link: '#'
+    },
+    {
+      title: 'React and the WP-API',
+      date: 'March 19 2022',
+      content: 'The first ever decoupled starter theme for React & the WP-API.',
+      image: 'https://picsum.photos/600/400',
+      category: 'News',
+      link: '#'
+    },
+    {
+      title: 'Nomad Lifestyle',
+      date: 'March 19 2022',
+      content: 'Learn our tips and tricks on living a nomadic lifestyle.',
+      image: 'https://picsum.photos/600/400',
+      category: 'Travel',
+      link: '#'
+    }
+  ];
+
+  // Cukup gunakan SATU return yang bersih
+  return (
+    <div>
+      <Header title="Latest News" subtitle="Covering March & April 2022" />
+      <Card
+        title={someNews[0].title}
+        date={someNews[0].date}
+        content={someNews[0].content}
+        image={someNews[0].image}
+        category={someNews[0].category}
+        link={someNews[0].link}
+      />
+      <Card
+        title={someNews[1].title}
+        date={someNews[1].date}
+        content={someNews[1].content}
+        image={someNews[1].image}
+        category={someNews[1].category}
+        link={someNews[1].link}
+      />
+      <Card
+        title={someNews[2].title}
+        date={someNews[2].date}
+        content={someNews[2].content}
+        image={someNews[2].image}
+        category={someNews[2].category}
+        link={someNews[2].link}
+      />
+    </div>
+  );
+}
 
 const root = createRoot(document.getElementById('root'));
-root.render(element);
+root.render(<News />);
